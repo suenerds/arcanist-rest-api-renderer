@@ -1,0 +1,23 @@
+{
+  "name": "suenerds/arcanist-rest-api-renderer",
+  "description": "A package containing the components for our formbuilder using arcanist",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Suenerds\\ArcanistRestApiRenderer\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Suenerds\\ArcanistRestApiRenderer\\Tests\\": "tests"
+    }
+  },
+  "require-dev": {
+    "orchestra/testbench": "^6.0",
+    "phpunit/phpunit": "^9.5"
+  },
+  "require": {
+    "laravel-arcanist/arcanist": "^0.5.0"
+  }
+}
