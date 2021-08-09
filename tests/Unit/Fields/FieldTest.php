@@ -18,6 +18,15 @@ class FieldTest extends TestCase
     }
 
     /** @test */
+    public function it_does_accept_an_arrow_function_for_the_meta_attribute()
+    {
+        $field = Field::make('::name::')
+                ->meta(fn () => ['::Meta::']);
+    
+        $this->assertEquals(['::Meta::'], $field->meta);
+    }
+
+    /** @test */
     public function it_serializes()
     {
         $field = Field::make('::name::')

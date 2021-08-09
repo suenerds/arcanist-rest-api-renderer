@@ -13,6 +13,10 @@ class Field extends ArcanistField implements JsonSerializable
 
     public function meta($meta) : Field
     {
+        if (is_callable($meta)) {
+            $meta = $meta();
+        }
+
         if (is_array($meta)==false) {
             $meta = array($meta);
         }
