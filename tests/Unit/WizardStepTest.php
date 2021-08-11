@@ -17,33 +17,33 @@ class WizardStepTest extends TestCase
         $step = new TestStep();
 
         // TODO: cleanup
-        $request = Request::create('/url', 'POST', [], [], [], [], json_encode([
+        $request = Request::create('/url', 'POST', [], [], [], [], [
             'editable' => 'lululu',
             'not_editable' => 'lalala',
-        ]));
-        $request->headers->set('content-type', 'application/json');
+        ]);
+      
 
         $this->assertArrayNotHasKey('not_editable', $step->process($request)->payload());
     }
 
     /** @test */
-    public function it_uses_the_display_method_in_the_view_data()
+    public function it_transforms_data_for_display()
     {
-        $this->markTestIncomplete();
+        $step = new class extends WizardStep {
+            public function fields(): array
+            {
+                return [
+                    Field::make('editable')->displayUsing(fn ($value) => '::display::'),
+                ];
+            }
+        };
+        
+        $wizard = m::mock(AbstractWizard::class);
+        $wizard->allows('data')->with('editable', null)->andReturn('::editable::');
 
-        $wizard = m::mock(TestWizard::class)->makePartial();
-        $wizard->allows('summary')
-            ->andReturns(['::summary::']);
-        $this->wizard = $wizard->makePartial();
-
-        // TODO: cleanup
-        $request = Request::create('/url', 'POST', [], [], [], [], json_encode([
-            'editable' => 'lululu',
-            'not_editable' => 'lalala',
-        ]));
-        $request->headers->set('content-type', 'application/json');
-
-        $this->assertEquals('::VALUE::', $this->wizard->currentStep()->viewData($request)['formData']['editable']);
+        $step->init($wizard, 1);
+        
+        $this->assertEquals('::display::', $step->viewData(new Request())['editable']);
     }
 }
 
@@ -52,7 +52,7 @@ class TestStep extends WizardStep
     public function fields(): array
     {
         return [
-            Field::make('editable')->displayUsing(fn($value) => strtoupper($value)),
+            Field::make('editable')->displayUsing(fn ($value) => '::display::'),
             Field::make('not_editable')->readOnly(),
         ];
     }
