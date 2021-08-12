@@ -44,6 +44,22 @@ class FieldTest extends TestCase
     }
 
     /** @test */
+    public function it_is_editable_by_default()
+    {
+        $field = Field::make('::name::');
+
+        $this->assertTrue($field->isEditable());
+    }
+
+    /** @test */
+    public function it_allows_setting_read_only()
+    {
+        $field = Field::make('::name::')->readOnly();
+
+        $this->assertFalse($field->isEditable());
+    }
+
+    /** @test */
     public function it_serializes()
     {
         $field = Field::make('::name::')

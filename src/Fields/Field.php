@@ -12,6 +12,23 @@ class Field extends ArcanistField implements JsonSerializable
     public array $meta = [];
 
     protected $displayCallback = null;
+    protected $readOnly = false;
+
+    public function isEditable()
+    {
+        return !$this->readOnly;
+    }
+
+    public function isReadOnly()
+    {
+        return $this->readOnly;
+    }
+
+    public function readOnly()
+    {
+        $this->readOnly = true;
+        return $this;
+    }
 
     public function display(mixed $value): mixed
     {
@@ -24,7 +41,7 @@ class Field extends ArcanistField implements JsonSerializable
         $this->displayCallback = $callback;
         return $this;
     }
-    
+
     public function meta($meta) : Field
     {
         if (is_callable($meta)) {

@@ -17,4 +17,23 @@ class WizardStep extends ArcanistStep
             return [ $key => $field->display($this->data($key)) ];
         })->toArray();
     }
+
+    public function process(Request $request): StepResult
+    {
+        // @TODO : we need this because rules() is private
+        $rules = collect($this->fields())
+            ->mapWithKeys(fn (Field $field) => [$field->name => $field->rules])
+            ->all();
+
+        $data = $this->validate($request, $rules); // @TODO: rules() in ArcanistStep is _private_
+
+        return collect($this->fields())
+            ->filter(function (Field $field) {
+                return $field->isEditable();
+            })
+            ->mapWithKeys(fn (Field $field) => [
+                $field->name => $field->value($data[$field->name] ?? null)
+            ])
+            ->pipe(fn (Collection $values) => $this->handle($request, $values->toArray()));
+    }
 }
