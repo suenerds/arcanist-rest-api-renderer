@@ -57,13 +57,3 @@ class TestStep extends WizardStep
         ];
     }
 }
-
-class TestWizard extends AbstractWizard
-{
-    public static string $slug = 'test-wizard';
-    protected mixed $id = 1;
-
-    public array $steps = [
-        TestStep::class,
-    ];
-}
