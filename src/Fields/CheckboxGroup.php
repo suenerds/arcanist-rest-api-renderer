@@ -9,12 +9,6 @@ class CheckboxGroup extends Field
     public $options = [];
     public $defaults = [];
 
-    public function groupDescription($desc)
-    {
-        $this->groupDescription = $desc;
-        return $this;
-    }
-
     public function options($options = [])
     {
         if (is_callable($options)) {

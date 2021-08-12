@@ -8,6 +8,13 @@ class RadioGroup extends Field
 
     public $options = [];
     public string $default = '';
+    public string $description = '';
+
+    public function description($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
 
     public function options($options = [])
     {
@@ -39,6 +46,7 @@ class RadioGroup extends Field
         return array_merge(
             parent::jsonSerialize(),
             [
+                'description' => $this->description,
                 'default' => $this->default,
                 'options' => $this->options,
             ]

@@ -11,6 +11,16 @@ class RadioGroupTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function it_can_be_initialized_with_a_description()
+    {
+        $radioGroup = RadioGroup::make('::name::')
+            ->description('::description::');
+
+
+        $this->assertEquals('::description::', $radioGroup->description);
+    }
+
+    /** @test */
     public function it_can_be_initialized_with_an_options_array()
     {
         $radioGroup = RadioGroup::make('::name::')

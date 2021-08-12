@@ -85,7 +85,6 @@ class CheckboxGroupTest extends TestCase
     {
         $field =  CheckboxGroup::make('::name::')
             ->label('::label::')
-            ->description('::description::')
             ->defaults(['::default1::', '::default2::'])
             ->options([
                 '::label::' => ['::value::', '::text::']
@@ -98,7 +97,6 @@ class CheckboxGroupTest extends TestCase
                 'dependencies' => [],
                 'component' => 'CheckboxGroup',
                 'meta' => [],
-                'description' => '::description::',
                 'defaults' => ['::default1::', '::default2::'],
                 'options' => [
                     [
