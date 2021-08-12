@@ -8,6 +8,25 @@ use Suenerds\ArcanistRestApiRenderer\Fields\Field;
 class FieldTest extends TestCase
 {
     /** @test */
+    public function it_allows_setting_a_label()
+    {
+
+        $field = Field::make('::name::')
+            ->label('::label::');
+
+        $this->assertEquals('::label::', $field->label);
+    }
+
+    /** @test */
+    public function it_allows_setting_a_description()
+    {
+        $field = Field::make('::name::')
+            ->description('::description::');
+
+        $this->assertEquals('::description::', $field->description);
+    }
+
+    /** @test */
     public function it_does_not_overwrite_the_meta_attribute()
     {
         $field = Field::make('::name::')
@@ -76,6 +95,7 @@ class FieldTest extends TestCase
                 'meta' => ['::meta::'],
                 'readOnly' => false,
                 'label' => '',
+                'description' => '',
             ],
             $field->JsonSerialize()
         );

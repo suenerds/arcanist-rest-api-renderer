@@ -31,7 +31,8 @@ class TextTest extends TestCase
                 'meta' => [],
                 'placeholder' => '::placeholder::',
                 'readOnly' => false,
-                'label' => ''
+                'label' => '',
+                'description' => '',
             ],
             $field->JsonSerialize()
         );

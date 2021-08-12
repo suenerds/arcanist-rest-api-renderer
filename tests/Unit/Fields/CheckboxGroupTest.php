@@ -11,24 +11,6 @@ class CheckboxGroupTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_can_be_initialized_with_an_group_label()
-    {
-        $checkboxGroup = CheckboxGroup::make('::name::')
-            ->groupLabel('::label::');
-
-        $this->assertEquals('::label::', $checkboxGroup->groupLabel);
-    }
-
-    /** @test */
-    public function it_can_be_initialized_with_an_group_description()
-    {
-        $checkboxGroup = CheckboxGroup::make('::name::')
-            ->groupDescription('::description::');
-
-        $this->assertEquals('::description::', $checkboxGroup->groupDescription);
-    }
-
-    /** @test */
     public function it_can_be_initialized_with_an_options_array()
     {
         $checkboxGroup = CheckboxGroup::make('::name::')
@@ -36,7 +18,6 @@ class CheckboxGroupTest extends TestCase
                 'label1' => ['value1', 'text1'],
                 'label2' => ['value2', 'text2']
             ]);
-
 
         $this->assertEquals([
                 [
@@ -103,8 +84,8 @@ class CheckboxGroupTest extends TestCase
     public function it_serializes()
     {
         $field =  CheckboxGroup::make('::name::')
-            ->groupLabel('::groupLabel::')
-            ->groupDescription('::description::')
+            ->label('::label::')
+            ->description('::description::')
             ->defaults(['::default1::', '::default2::'])
             ->options([
                 '::label::' => ['::value::', '::text::']
@@ -117,7 +98,6 @@ class CheckboxGroupTest extends TestCase
                 'dependencies' => [],
                 'component' => 'CheckboxGroup',
                 'meta' => [],
-                'label' => '::groupLabel::',
                 'description' => '::description::',
                 'defaults' => ['::default1::', '::default2::'],
                 'options' => [
@@ -128,6 +108,7 @@ class CheckboxGroupTest extends TestCase
                     ]
                 ],
                 'readOnly' => false,
+                'label' => '::label::',
             ],
             $field->JsonSerialize()
         );

@@ -12,6 +12,7 @@ class Field extends ArcanistField implements JsonSerializable
     public array $meta = [];
 
     public string $label = '';
+    public string $description = '';
 
     protected $displayCallback = null;
     protected $readOnly = false;
@@ -50,6 +51,12 @@ class Field extends ArcanistField implements JsonSerializable
         return $this;
     }
 
+    public function description(string $description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
     public function meta($meta) : Field
     {
         if (is_callable($meta)) {
@@ -74,6 +81,7 @@ class Field extends ArcanistField implements JsonSerializable
             'meta' => $this->meta,
             'readOnly' => $this->readOnly,
             'label' => $this->label,
+            'description' => $this->description,
         ];
     }
 }

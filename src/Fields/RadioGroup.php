@@ -5,22 +5,9 @@ namespace Suenerds\ArcanistRestApiRenderer\Fields;
 class RadioGroup extends Field
 {
     public string $component = 'RadioGroup';
-    public string $groupLabel = '';
-    public string $groupDescription = '';
 
     public $options = [];
     public string $default = '';
-
-    public function groupLabel($label)
-    {
-        $this->groupLabel = $label;
-        return $this;
-    }
-    public function groupDescription($desc)
-    {
-        $this->groupDescription = $desc;
-        return $this;
-    }
 
     public function options($options = [])
     {
@@ -52,8 +39,6 @@ class RadioGroup extends Field
         return array_merge(
             parent::jsonSerialize(),
             [
-                'label' => $this->groupLabel,
-                'description' => $this->groupDescription,
                 'default' => $this->default,
                 'options' => $this->options,
             ]

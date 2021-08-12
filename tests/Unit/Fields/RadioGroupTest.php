@@ -11,24 +11,6 @@ class RadioGroupTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_can_be_initialized_with_an_group_label()
-    {
-        $radioGroup = RadioGroup::make('::name::')
-            ->groupLabel('::label::');
-
-        $this->assertEquals('::label::', $radioGroup->groupLabel);
-    }
-
-    /** @test */
-    public function it_can_be_initialized_with_an_group_description()
-    {
-        $radioGroup = RadioGroup::make('::name::')
-            ->groupDescription('::description::');
-
-        $this->assertEquals('::description::', $radioGroup->groupDescription);
-    }
-
-    /** @test */
     public function it_can_be_initialized_with_an_options_array()
     {
         $radioGroup = RadioGroup::make('::name::')
@@ -103,8 +85,8 @@ class RadioGroupTest extends TestCase
     public function it_serializes()
     {
         $field =  RadioGroup::make('::name::')
-            ->groupLabel('::groupLabel::')
-            ->groupDescription('::description::')
+            ->label('::label::')
+            ->description('::description::')
             ->default('::default::')
             ->options([
                 '::label::' => ['::value::', '::text::']
@@ -117,7 +99,6 @@ class RadioGroupTest extends TestCase
                 'dependencies' => [],
                 'component' => 'RadioGroup',
                 'meta' => [],
-                'label' => '::groupLabel::',
                 'description' => '::description::',
                 'default' => '::default::',
                 'options' => [
@@ -128,6 +109,7 @@ class RadioGroupTest extends TestCase
                     ]
                 ],
                 'readOnly' => false,
+                'label' => '::label::',
             ],
             $field->JsonSerialize()
         );
