@@ -5,6 +5,7 @@ namespace Suenerds\ArcanistRestApiRenderer\Fields;
 class Text extends Field
 {
     public string $component = 'Text';
+    public string $placeholder = '';
 
     public function placeholder($placeholder)
     {
