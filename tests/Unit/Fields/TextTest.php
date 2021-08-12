@@ -29,7 +29,8 @@ class TextTest extends TestCase
                 'dependencies' => [],
                 'component' => 'Text',
                 'meta' => [],
-                'placeholder' => '::placeholder::'
+                'placeholder' => '::placeholder::',
+                'readOnly' => false,
             ],
             $field->JsonSerialize()
         );

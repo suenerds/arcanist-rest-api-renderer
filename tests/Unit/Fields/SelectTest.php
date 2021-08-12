@@ -65,7 +65,8 @@ class SelectTest extends TestCase
                         'label' => '::label::',
                         'value' => '::value::',
                     ]
-                ]
+                ],
+                'readOnly' => false,
             ],
             $field->jsonSerialize()
         );

@@ -22,7 +22,7 @@ class FieldTest extends TestCase
     {
         $field = Field::make('::name::')
                 ->meta(fn () => ['::Meta::']);
-    
+
         $this->assertEquals(['::Meta::'], $field->meta);
     }
 
@@ -74,6 +74,7 @@ class FieldTest extends TestCase
                 'dependencies' => ['::other-field::'],
                 'component' => 'Field',
                 'meta' => ['::meta::'],
+                'readOnly' => false,
             ],
             $field->JsonSerialize()
         );

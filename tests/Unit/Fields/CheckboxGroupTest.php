@@ -126,7 +126,8 @@ class CheckboxGroupTest extends TestCase
                         'value' => '::value::',
                         'description' => '::text::'
                     ]
-                ]
+                ],
+                'readOnly' => false,
             ],
             $field->JsonSerialize()
         );
