@@ -64,6 +64,7 @@ class Field extends ArcanistField implements JsonSerializable
             'dependencies' => $this->dependencies,
             'component' => $this->component,
             'meta' => $this->meta,
+            'readOnly' => $this->readOnly,
         ];
     }
 }
