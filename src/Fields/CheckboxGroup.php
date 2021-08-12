@@ -16,6 +16,7 @@ class CheckboxGroup extends Field
         $this->groupLabel = $label;
         return $this;
     }
+
     public function groupDescription($desc)
     {
         $this->groupDescription = $desc;

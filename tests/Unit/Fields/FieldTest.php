@@ -75,6 +75,7 @@ class FieldTest extends TestCase
                 'component' => 'Field',
                 'meta' => ['::meta::'],
                 'readOnly' => false,
+                'label' => '',
             ],
             $field->JsonSerialize()
         );

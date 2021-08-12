@@ -48,6 +48,7 @@ class JsonResponseRendererTest extends TestCase
                         'component' => 'Field',
                         'meta' => [],
                         'readOnly' => false,
+                        'label' => '',
                     ]
                 ],
                 'step' => [
