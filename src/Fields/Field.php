@@ -11,6 +11,20 @@ class Field extends ArcanistField implements JsonSerializable
 
     public array $meta = [];
 
+    protected $displayCallback = null;
+
+    public function display(mixed $value): mixed
+    {
+        $callback = $this->displayCallback ?: fn ($val) => $val;
+        return $callback($value);
+    }
+
+    public function displayUsing(callable $callback): self
+    {
+        $this->displayCallback = $callback;
+        return $this;
+    }
+    
     public function meta($meta) : Field
     {
         if (is_callable($meta)) {

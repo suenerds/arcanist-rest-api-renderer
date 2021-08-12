@@ -27,6 +27,23 @@ class FieldTest extends TestCase
     }
 
     /** @test */
+    public function it_doesnt_transform_the_display_value_by_default()
+    {
+        $field = Field::make('::name::');
+
+        $this->assertEquals('::value::', $field->display('::value::'));
+    }
+
+    /** @test */
+    public function it_transforms_the_display_value_when_given_a_display_callback()
+    {
+        $field = Field::make('::name::')
+            ->displayUsing(fn ($value) => strtoupper($value));
+
+        $this->assertEquals('::VALUE::', $field->display('::value::'));
+    }
+
+    /** @test */
     public function it_serializes()
     {
         $field = Field::make('::name::')
