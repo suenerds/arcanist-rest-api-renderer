@@ -24,30 +24,34 @@ class JsonResponseRenderer implements ResponseRenderer
 
     public function redirect(WizardStep $step, AbstractWizard $wizard): Response | Responsable | Renderable
     {
-        return new JsonResponse([
-            'redirect' => [
-                'name' => 'step',
-                'params' => [
-                    'wizardSlug' => $wizard::$slug,
-                    'wizardId' => $wizard->getId(),
-                    'step' => $step->slug,
-                ]
-            ]
+        return $this->jsonRedirect('step', [
+            'wizardSlug' => $wizard::$slug,
+            'wizardId' => $wizard->getId(),
+            'step' => $step->slug,
         ]);
     }
 
     public function redirectWithError(WizardStep $step, AbstractWizard $wizard, ?string $error = null): Response | Responsable | Renderable
     {
+        return $this->jsonRedirect(
+            name: 'step',
+            params: [
+                'wizardSlug' => $wizard::$slug,
+                'wizardId' => $wizard->getId(),
+                'step' => $step->slug,
+            ],
+            error: $error
+        );
+    }
+
+    public function jsonRedirect(string $name, array $params, ?string $error = null) : Response | Responsable | Renderable
+    {
         return new JsonResponse([
             'redirect' => [
-                'name' => 'step',
-                'params' => [
-                    'wizardSlug' => $wizard::$slug,
-                    'wizardId' => $wizard->getId(),
-                    'step' => $step->slug,
-                ]
+                'name' => $name,
+                'params' => $params
             ],
-            'error' => $error
+            'error' => $error,
         ]);
     }
 }
