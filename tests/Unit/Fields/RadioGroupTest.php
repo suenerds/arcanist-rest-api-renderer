@@ -93,17 +93,17 @@ class RadioGroupTest extends TestCase
             ->options(['::optionOne::','::optionTwo::',]);
 
         $this->assertEquals([
-        [
-            'label' => '::optionOne::',
-            'value' => '::optionOne::',
-        ],
-        [
-            'label' => '::optionTwo::',
-            'value' => '::optionTwo::',
-        ],
-    ], $radioGroup->options);
+            [
+                'label' => '::optionOne::',
+                'value' => '::optionOne::',
+            ],
+            [
+                'label' => '::optionTwo::',
+                'value' => '::optionTwo::',
+            ],
+        ], $radioGroup->options);
     }
-
+    
     /** @test */
     public function it_serializes()
     {

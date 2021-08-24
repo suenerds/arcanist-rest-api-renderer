@@ -30,10 +30,9 @@ class CheckboxGroup extends Field
         }
 
         $this->options = collect($options)->map(function ($attribute, $label) {
-            if (is_string($attribute)) {
+            if (!is_array($attribute)) {
                 $attribute = [$attribute, null];
             }
-
             [$value, $description] = $attribute;
 
             return [ 'label' => $label, 'value' => $value, 'description' => $description];

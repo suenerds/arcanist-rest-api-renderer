@@ -111,6 +111,25 @@ class CheckboxGroupTest extends TestCase
             $field->JsonSerialize()
         );
     }
+
+    /** @test */
+    public function it_can_be_initialized_with_boolean_values()
+    {
+        $checkboxGroup = CheckboxGroup::make('::name::')
+            ->options([
+                '::label::' => true,
+            ]);
+
+        $this->assertEquals([
+            [
+                'label' => '::label::',
+                'value' => true,
+                'description' => null,
+            ]
+        ], $checkboxGroup->options);
+    }
+
+        
     /** @test */
     public function it_correctly_displays_an_empty_array_if_no_default_is_set()
     {
