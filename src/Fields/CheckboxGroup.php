@@ -8,6 +8,16 @@ class CheckboxGroup extends Field
 
     public $options = [];
     public $defaults = [];
+    
+    public function __construct(
+        public string $name,
+        public array $rules = ['nullable'],
+        public array $dependencies = []
+    ) {
+        $this->displayUsing(function ($value) {
+            return $value ?: $this->defaults;
+        });
+    }
 
     public function options($options = [])
     {
