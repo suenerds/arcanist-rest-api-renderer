@@ -81,7 +81,7 @@ class CheckboxGroupTest extends TestCase
     }
 
     /** @test */
-    public function it_serializes()
+    public function it_serializes_without_defaults()
     {
         $field =  CheckboxGroup::make('::name::')
             ->label('::label::')
@@ -110,5 +110,39 @@ class CheckboxGroupTest extends TestCase
             ],
             $field->JsonSerialize()
         );
+    }
+    /** @test */
+    public function it_correctly_displays_an_empty_array_if_no_default_is_set()
+    {
+        $field =  CheckboxGroup::make('::name::');
+            
+        $this->assertEquals([], $field->display(null));
+    }
+
+    /** @test */
+    public function it_correctly_displays_intial_values_if_a_default_is_set()
+    {
+        $field =  CheckboxGroup::make('::name::')
+            ->defaults(['::default::']);
+            
+        $this->assertEquals(['::default::'], $field->display(null));
+    }
+
+    /** @test */
+    public function it_correctly_display_set_values_if_a_default_is_set()
+    {
+        $field =  CheckboxGroup::make('::name::')
+        ->defaults(['::default::']);
+        
+        $this->assertEquals(['::value::'], $field->display(['::value::']));
+    }
+
+    /** @test */
+    public function it_correctly_displays_an_empty_array_if_the_default_is_deselected_and_no_other_value_is_selected()
+    {
+        $field =  CheckboxGroup::make('::name::')
+            ->defaults(['::default::']);
+            
+        $this->assertEquals([], $field->display([]));
     }
 }

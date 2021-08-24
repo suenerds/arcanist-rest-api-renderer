@@ -73,9 +73,11 @@ class JsonResponseRendererTest extends TestCase
                 'params'=> [
                         'wizardSlug'=> 'json-wizard',
                         'wizardId'=> '1',
-                        'step'=> 'json-step'
+                        'step'=> 'json-step',
+                       
                     ]
-                ]
+                ],
+                'error' => null,
             ],
             json_decode($response->getContent(), true)
         );

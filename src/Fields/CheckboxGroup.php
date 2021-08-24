@@ -15,7 +15,11 @@ class CheckboxGroup extends Field
         public array $dependencies = []
     ) {
         $this->displayUsing(function ($value) {
-            return $value ?: $this->defaults;
+            if ($value === null) {
+                return $this->defaults;
+            }
+          
+            return $value;
         });
     }
 
