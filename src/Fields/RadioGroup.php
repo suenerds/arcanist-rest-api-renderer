@@ -2,6 +2,8 @@
 
 namespace Suenerds\ArcanistRestApiRenderer\Fields;
 
+use Illuminate\Support\Arr;
+
 class RadioGroup extends Field
 {
     public string $component = 'RadioGroup';
@@ -21,17 +23,19 @@ class RadioGroup extends Field
         if (is_callable($options)) {
             $options = $options();
         }
+        
+        if (Arr::isAssoc($options)) {
+            $this->options = collect($options)->map(function ($value, $label) {
+                return [ 'label' => $label, 'value' => $value];
+            })->values()->all();
 
-        $this->options = collect($options)->map(function ($attribute, $label) {
-            if (is_string($attribute)) {
-                $attribute = [$attribute, null];
-            }
-
-            [$value, $description] = $attribute;
-
-            return [ 'label' => $label, 'value' => $value, 'description' => $description];
+            return $this;
+        }
+        
+        $this->options = collect($options)->map(function ($value, $index) {
+            return [ 'label' => $value, 'value' => $value];
         })->values()->all();
-
+            
         return $this;
     }
 

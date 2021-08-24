@@ -25,8 +25,8 @@ class RadioGroupTest extends TestCase
     {
         $radioGroup = RadioGroup::make('::name::')
             ->options([
-                'label1' => ['value1', 'text1'],
-                'label2' => ['value2', 'text2']
+                'label1' => 'value1',
+                'label2' => 'value2'
             ]);
 
 
@@ -34,12 +34,10 @@ class RadioGroupTest extends TestCase
                 [
                     'label' => 'label1',
                     'value' => 'value1',
-                    'description' => 'text1'
                 ],
                 [
                     'label' => 'label2',
                     'value' => 'value2',
-                    'description' => 'text2'
                 ],
             ], $radioGroup->options);
     }
@@ -57,18 +55,16 @@ class RadioGroupTest extends TestCase
             [
                 'label' => 'label1',
                 'value' => 'value1',
-                'description' => null
             ],
             [
                 'label' => 'label2',
                 'value' => 'value2',
-                'description' => null
             ],
         ], $radioGroup->options);
     }
 
     /** @test */
-    public function it_can_be_initialized_with_an_options_arrow_function_without_description()
+    public function it_can_be_initialized_with_an_options_arrow_function()
     {
         $radioGroup = RadioGroup::make('::name::')
             ->options(fn () => ['::label::' => '::value::']);
@@ -77,7 +73,6 @@ class RadioGroupTest extends TestCase
             [
                 'label' => '::label::',
                 'value' => '::value::',
-                'description' => null,
             ]
         ], $radioGroup->options);
     }
@@ -92,6 +87,24 @@ class RadioGroupTest extends TestCase
     }
 
     /** @test */
+    public function it_can_be_initialized_with_an_array_of_labels()
+    {
+        $radioGroup = RadioGroup::make('::name::')
+            ->options(['::optionOne::','::optionTwo::',]);
+
+        $this->assertEquals([
+        [
+            'label' => '::optionOne::',
+            'value' => '::optionOne::',
+        ],
+        [
+            'label' => '::optionTwo::',
+            'value' => '::optionTwo::',
+        ],
+    ], $radioGroup->options);
+    }
+
+    /** @test */
     public function it_serializes()
     {
         $field =  RadioGroup::make('::name::')
@@ -99,7 +112,7 @@ class RadioGroupTest extends TestCase
             ->description('::description::')
             ->default('::default::')
             ->options([
-                '::label::' => ['::value::', '::text::']
+                '::label::' => '::value::'
             ]);
 
         $this->assertEquals(
@@ -115,7 +128,6 @@ class RadioGroupTest extends TestCase
                     [
                         'label' => '::label::',
                         'value' => '::value::',
-                        'description' => '::text::'
                     ]
                 ],
                 'readOnly' => false,
