@@ -24,16 +24,12 @@ class RadioGroup extends Field
             $options = $options();
         }
         
-        if (Arr::isAssoc($options)) {
-            $this->options = collect($options)->map(function ($value, $label) {
-                return [ 'label' => $label, 'value' => $value];
-            })->values()->all();
-
-            return $this;
-        }
-        
-        $this->options = collect($options)->map(function ($value, $index) {
-            return [ 'label' => $value, 'value' => $value];
+        $this->options = collect($options)->when(!Arr::isAssoc($options), function ($collection) {
+            return $collection->mapWithKeys(function ($value) {
+                return [ $value => $value ];
+            });
+        })->map(function ($value, $label) {
+            return [ 'label' => $label, 'value' => $value];
         })->values()->all();
             
         return $this;
