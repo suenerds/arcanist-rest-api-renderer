@@ -7,8 +7,9 @@ class Checkbox extends Field
     public string $component = 'Checkbox';
 
     public $option = [];
+    public $default = false;
 
-    public function option($option)
+    public function option($option) : self
     {
         [$label, $description] = $option;
 
@@ -17,7 +18,7 @@ class Checkbox extends Field
         return $this;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize() : array
     {
         return array_merge(
             parent::jsonSerialize(),

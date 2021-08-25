@@ -67,12 +67,48 @@ class FieldTest extends TestCase
 
         $this->assertFalse($field->isEditable());
     }
+      
+    /** @test */
+    public function it_correctly_displays_an_empty_string_if_no_default_or_value_is_set()
+    {
+        $field =  Field::make('::name::');
+            
+        $this->assertEquals('', $field->display(null));
+    }
+
+    /** @test */
+    public function it_correctly_displays_intial_values_if_a_default_is_set()
+    {
+        $field =  Field::make('::name::')
+            ->default('::default::');
+            
+        $this->assertEquals('::default::', $field->display(null));
+    }
+
+    /** @test */
+    public function it_correctly_display_set_values_if_a_default_is_set()
+    {
+        $field =  Field::make('::name::')
+        ->default('::default::');
+        
+        $this->assertEquals('::value::', $field->display('::value::'));
+    }
+
+    /** @test */
+    public function it_correctly_displays_an_empty_string_if_the_default_is_deselected_and_no_other_value_is_selected()
+    {
+        $field =  Field::make('::name::')
+            ->default('::default::');
+            
+        $this->assertEquals('', $field->display(''));
+    }
 
     /** @test */
     public function it_serializes()
     {
         $field = Field::make('::name::')
             ->rules(['required'])
+            ->default('::default::')
             ->dependsOn('::other-field::')
             ->meta('::meta::');
 

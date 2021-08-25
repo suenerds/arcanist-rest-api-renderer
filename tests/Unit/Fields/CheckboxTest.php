@@ -29,6 +29,14 @@ class CheckboxTest extends TestCase
     }
 
     /** @test */
+    public function it_correctly_displays_false_if_no_default_or_value_is_set()
+    {
+        $field = Checkbox::make('::name::');
+            
+        $this->assertEquals(false, $field->display(null));
+    }
+
+    /** @test */
     public function it_serializes_correctly()
     {
         $checkbox = Checkbox::make('::name::')

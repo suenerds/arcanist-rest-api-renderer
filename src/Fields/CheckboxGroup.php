@@ -6,24 +6,10 @@ class CheckboxGroup extends Field
 {
     public string $component = 'CheckboxGroup';
 
-    public $options = [];
-    public $defaults = [];
+    public array $options = [];
+    public $default = [];
     
-    public function __construct(
-        public string $name,
-        public array $rules = ['nullable'],
-        public array $dependencies = []
-    ) {
-        $this->displayUsing(function ($value) {
-            if ($value === null) {
-                return $this->defaults;
-            }
-          
-            return $value;
-        });
-    }
-
-    public function options($options = [])
+    public function options($options) : self
     {
         if (is_callable($options)) {
             $options = $options();
@@ -41,19 +27,12 @@ class CheckboxGroup extends Field
         return $this;
     }
 
-    public function defaults($defaults)
-    {
-        $this->defaults = $defaults;
 
-        return $this;
-    }
-
-    public function jsonSerialize()
+    public function jsonSerialize() : array
     {
         return array_merge(
             parent::jsonSerialize(),
             [
-                'defaults' => $this->defaults,
                 'options' => $this->options,
             ]
         );

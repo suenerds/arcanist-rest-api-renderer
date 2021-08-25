@@ -12,21 +12,43 @@ class Field extends ArcanistField implements JsonSerializable
     public array $meta = [];
 
     public string $label = '';
+    public $default = '';
 
     protected $displayCallback = null;
     protected $readOnly = false;
 
-    public function isEditable()
+    public function __construct(
+        public string $name,
+        public array $rules = ['nullable'],
+        public array $dependencies = []
+    ) {
+        $this->displayUsing(function ($value) {
+            if (is_null($value)) {
+                return $this->default;
+            }
+          
+            return $value;
+        });
+    }
+    
+    public function default($default) : self
+    {
+        $this->default = $default;
+
+        return $this;
+    }
+
+    public function isEditable() : bool
     {
         return !$this->readOnly;
     }
 
-    public function isReadOnly()
+    public function isReadOnly() : bool
     {
         return $this->readOnly;
     }
 
-    public function readOnly()
+    public function readOnly() : self
     {
         $this->readOnly = true;
         return $this;
@@ -38,13 +60,13 @@ class Field extends ArcanistField implements JsonSerializable
         return $callback($value);
     }
 
-    public function displayUsing(callable $callback): self
+    public function displayUsing(callable $callback) : self
     {
         $this->displayCallback = $callback;
         return $this;
     }
 
-    public function label(string $label)
+    public function label(string $label) : self
     {
         $this->label = $label;
         return $this;
@@ -64,7 +86,7 @@ class Field extends ArcanistField implements JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize() : array
     {
         return [
             'name' => $this->name,

@@ -20,6 +20,7 @@ class TextTest extends TestCase
     public function it_serializes()
     {
         $field =  Text::make('::name::')
+                    ->default('::default::')
                     ->placeholder('::placeholder::');
 
         $this->assertEquals(

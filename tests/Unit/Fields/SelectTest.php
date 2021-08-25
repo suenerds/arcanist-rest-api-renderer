@@ -49,6 +49,7 @@ class SelectTest extends TestCase
     public function it_serializes()
     {
         $field =  Select::make('::name::')
+                ->default('::default::')
                 ->options([
                     '::label::' => '::value::',
                 ]);

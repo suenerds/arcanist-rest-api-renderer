@@ -71,21 +71,13 @@ class CheckboxGroupTest extends TestCase
         ], $checkboxGroup->options);
     }
 
+  
     /** @test */
-    public function it_can_be_initialized_with_an_array_of_defaults()
-    {
-        $checkboxGroup = CheckboxGroup::make('::name::')
-            ->defaults(['::default::']);
-
-        $this->assertEquals(['::default::'], $checkboxGroup->defaults);
-    }
-
-    /** @test */
-    public function it_serializes_without_defaults()
+    public function it_serializes_without_default()
     {
         $field =  CheckboxGroup::make('::name::')
             ->label('::label::')
-            ->defaults(['::default1::', '::default2::'])
+            ->default(['::default1::', '::default2::'])
             ->options([
                 '::label::' => ['::value::', '::text::']
             ]);
@@ -97,7 +89,6 @@ class CheckboxGroupTest extends TestCase
                 'dependencies' => [],
                 'component' => 'CheckboxGroup',
                 'meta' => [],
-                'defaults' => ['::default1::', '::default2::'],
                 'options' => [
                     [
                         'label' => '::label::',
@@ -129,39 +120,11 @@ class CheckboxGroupTest extends TestCase
         ], $checkboxGroup->options);
     }
 
-        
     /** @test */
-    public function it_correctly_displays_an_empty_array_if_no_default_is_set()
+    public function it_correctly_displays_an_empty_array_if_no_default_or_value_is_set()
     {
-        $field =  CheckboxGroup::make('::name::');
+        $field = CheckboxGroup::make('::name::');
             
         $this->assertEquals([], $field->display(null));
-    }
-
-    /** @test */
-    public function it_correctly_displays_intial_values_if_a_default_is_set()
-    {
-        $field =  CheckboxGroup::make('::name::')
-            ->defaults(['::default::']);
-            
-        $this->assertEquals(['::default::'], $field->display(null));
-    }
-
-    /** @test */
-    public function it_correctly_display_set_values_if_a_default_is_set()
-    {
-        $field =  CheckboxGroup::make('::name::')
-        ->defaults(['::default::']);
-        
-        $this->assertEquals(['::value::'], $field->display(['::value::']));
-    }
-
-    /** @test */
-    public function it_correctly_displays_an_empty_array_if_the_default_is_deselected_and_no_other_value_is_selected()
-    {
-        $field =  CheckboxGroup::make('::name::')
-            ->defaults(['::default::']);
-            
-        $this->assertEquals([], $field->display([]));
     }
 }

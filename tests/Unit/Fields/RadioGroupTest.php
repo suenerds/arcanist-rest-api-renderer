@@ -78,15 +78,6 @@ class RadioGroupTest extends TestCase
     }
 
     /** @test */
-    public function it_can_be_initialized_with_an_default()
-    {
-        $radioGroup = RadioGroup::make('::name::')
-            ->default('::default::');
-
-        $this->assertEquals('::default::', $radioGroup->default);
-    }
-
-    /** @test */
     public function it_can_be_initialized_with_an_array_of_labels()
     {
         $radioGroup = RadioGroup::make('::name::')
@@ -123,7 +114,6 @@ class RadioGroupTest extends TestCase
                 'component' => 'RadioGroup',
                 'meta' => [],
                 'description' => '::description::',
-                'default' => '::default::',
                 'options' => [
                     [
                         'label' => '::label::',

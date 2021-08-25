@@ -9,16 +9,15 @@ class RadioGroup extends Field
     public string $component = 'RadioGroup';
 
     public $options = [];
-    public string $default = '';
     public string $description = '';
 
-    public function description($description)
+    public function description($description) : self
     {
         $this->description = $description;
         return $this;
     }
 
-    public function options($options = [])
+    public function options($options) : self
     {
         if (is_callable($options)) {
             $options = $options();
@@ -35,19 +34,12 @@ class RadioGroup extends Field
         return $this;
     }
 
-    public function default($default)
-    {
-        $this->default = $default;
-        return $this;
-    }
-
-    public function jsonSerialize()
+    public function jsonSerialize() : array
     {
         return array_merge(
             parent::jsonSerialize(),
             [
                 'description' => $this->description,
-                'default' => $this->default,
                 'options' => $this->options,
             ]
         );

@@ -5,9 +5,9 @@ namespace Suenerds\ArcanistRestApiRenderer\Fields;
 class Select extends Field
 {
     public string $component = 'Select';
-    public $options = [];
+    public array $options = [];
 
-    public function options($options = [])
+    public function options($options) : self
     {
         if (is_callable($options)) {
             $options = $options();
@@ -20,7 +20,7 @@ class Select extends Field
         return $this;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize() : array
     {
         return array_merge(
             parent::jsonSerialize(),
