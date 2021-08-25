@@ -46,10 +46,20 @@ class SelectTest extends TestCase
     }
 
     /** @test */
+    public function it_can_be_initialized_with_a_placeholder()
+    {
+        $select = Select::make('::name::')
+            ->placeholder('::placeholder::');
+
+        $this->assertEquals('::placeholder::', $select->placeholder);
+    }
+    
+    /** @test */
     public function it_serializes()
     {
         $field =  Select::make('::name::')
                 ->default('::default::')
+                ->placeholder('::placeholder::')
                 ->options([
                     '::label::' => '::value::',
                 ]);
@@ -61,6 +71,7 @@ class SelectTest extends TestCase
                 'dependencies' => [],
                 'component' => 'Select',
                 'meta' => [],
+                'placeholder' => '::placeholder::',
                 'options' => [
                     [
                         'label' => '::label::',

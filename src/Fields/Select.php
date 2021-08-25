@@ -6,6 +6,7 @@ class Select extends Field
 {
     public string $component = 'Select';
     public array $options = [];
+    public string $placeholder = '';
 
     public function options($options) : self
     {
@@ -20,12 +21,19 @@ class Select extends Field
         return $this;
     }
 
+    public function placeholder($placeholder) : self
+    {
+        $this->placeholder =  $placeholder;
+        return $this;
+    }
+
     public function jsonSerialize() : array
     {
         return array_merge(
             parent::jsonSerialize(),
             [
                 'options' => $this->options,
+                'placeholder' => $this->placeholder,
             ]
         );
     }
