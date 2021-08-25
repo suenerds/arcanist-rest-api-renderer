@@ -71,7 +71,6 @@ class CheckboxGroupTest extends TestCase
         ], $checkboxGroup->options);
     }
 
-  
     /** @test */
     public function it_serializes_without_default()
     {
