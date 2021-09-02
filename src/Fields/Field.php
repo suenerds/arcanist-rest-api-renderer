@@ -26,11 +26,11 @@ class Field extends ArcanistField implements JsonSerializable
             if (is_null($value)) {
                 return $this->default;
             }
-          
+
             return $value;
         });
     }
-    
+
     public function default($default) : self
     {
         $this->default = $default;
@@ -57,7 +57,7 @@ class Field extends ArcanistField implements JsonSerializable
     public function display(mixed $value): mixed
     {
         $callback = $this->displayCallback ?: fn ($val) => $val;
-        return $callback($value);
+        return $callback($value, $this);
     }
 
     public function displayUsing(callable $callback) : self
