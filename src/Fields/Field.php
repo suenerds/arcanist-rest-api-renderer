@@ -17,6 +17,8 @@ class Field extends ArcanistField implements JsonSerializable
     protected $displayCallback = null;
     protected $readOnly = false;
 
+    public $nested_rules = [];
+
     public function __construct(
         public string $name,
         public array $rules = ['nullable'],
@@ -31,6 +33,13 @@ class Field extends ArcanistField implements JsonSerializable
         });
     }
 
+    public function nestedRules(array $nested_rules)
+    {
+        $this->nested_rules = $nested_rules;
+
+        return $this;
+    }
+
     public function default($default) : self
     {
         $this->default = $default;
@@ -40,7 +49,7 @@ class Field extends ArcanistField implements JsonSerializable
 
     public function isEditable() : bool
     {
-        return !$this->readOnly;
+        return ! $this->readOnly;
     }
 
     public function isReadOnly() : bool
@@ -51,24 +60,28 @@ class Field extends ArcanistField implements JsonSerializable
     public function readOnly() : self
     {
         $this->readOnly = true;
+
         return $this;
     }
 
     public function display(mixed $value): mixed
     {
         $callback = $this->displayCallback ?: fn ($val) => $val;
+
         return $callback($value, $this);
     }
 
     public function displayUsing(callable $callback) : self
     {
         $this->displayCallback = $callback;
+
         return $this;
     }
 
     public function label(string $label) : self
     {
         $this->label = $label;
+
         return $this;
     }
 
@@ -78,11 +91,12 @@ class Field extends ArcanistField implements JsonSerializable
             $meta = $meta();
         }
 
-        if (is_array($meta)==false) {
-            $meta = array($meta);
+        if (is_array($meta) == false) {
+            $meta = [$meta];
         }
 
         $this->meta = array_merge($this->meta, $meta);
+
         return $this;
     }
 

@@ -18,14 +18,29 @@ class WizardStep extends ArcanistStep
         })->toArray();
     }
 
-    public function process(Request $request): StepResult
+    protected function rules(): array
     {
-        // @TODO : we need this because rules() is private
-        $rules = collect($this->fields())
-            ->mapWithKeys(fn (Field $field) => [$field->name => $field->rules])
+        $nested_rules = collect($this->fields())
+            ->flatMap(function (Field $field) {
+                return collect($field->nested_rules)
+                    ->mapWithKeys(fn ($rule, $subField) => [
+                        "$field->name.$subField" => $rule,
+                    ]);
+            })
             ->all();
 
-        $data = $this->validate($request, $rules); // @TODO: rules() in ArcanistStep is _private_
+        $field_rules = collect($this->fields())
+            ->mapWithKeys(fn (Field $field) => [
+                $field->name => $field->rules,
+            ])
+            ->all();
+
+        return array_merge($nested_rules, $field_rules);
+    }
+
+    public function process(Request $request): StepResult
+    {
+        $data = $this->validate($request, $this->rules());
 
         return collect($this->fields())
             ->filter(function (Field $field) {
