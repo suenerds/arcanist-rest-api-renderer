@@ -3,6 +3,7 @@
 namespace Suenerds\ArcanistRestApiRenderer;
 
 use Arcanist\StepResult;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Arcanist\WizardStep as ArcanistStep;
@@ -20,22 +21,11 @@ class WizardStep extends ArcanistStep
 
     protected function rules(): array
     {
-        $nested_rules = collect($this->fields())
-            ->flatMap(function (Field $field) {
-                return collect($field->nested_rules)
-                    ->mapWithKeys(fn ($rule, $subField) => [
-                        "$field->name.$subField" => $rule,
-                    ]);
-            })
-            ->all();
-
-        $field_rules = collect($this->fields())
-            ->mapWithKeys(fn (Field $field) => [
-                $field->name => $field->rules,
-            ])
-            ->all();
-
-        return array_merge($nested_rules, $field_rules);
+        return collect($this->fields())->mapWithKeys(function (Field $field) {
+            return Arr::isAssoc($field->rules)
+                ? $field->rules
+                : [$field->name => $field->rules];
+        })->all();
     }
 
     public function process(Request $request): StepResult
