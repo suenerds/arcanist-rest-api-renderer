@@ -11,6 +11,9 @@ use Suenerds\ArcanistRestApiRenderer\Fields\Field;
 
 class WizardStep extends ArcanistStep
 {
+    protected array $validator_messages = [];
+    protected array $validator_attributes = [];
+
     public function viewData(Request $request): array
     {
         return collect($this->fields())->mapWithKeys(function (Field $field) {
@@ -29,31 +32,13 @@ class WizardStep extends ArcanistStep
         })->all();
     }
 
-    protected function messages(): array
-    {
-        return collect($this->fields())->mapWithKeys(function (Field $field) {
-            return Arr::isAssoc($field->messages)
-                ? $field->messages
-                : [$field->name => $field->messages];
-        })->all();
-    }
-
-    protected function customAttributes(): array
-    {
-        return collect($this->fields())->mapWithKeys(function (Field $field) {
-            return Arr::isAssoc($field->customAttributes)
-                ? $field->customAttributes
-                : [$field->name => $field->customAttributes];
-        })->all();
-    }
-
     public function process(Request $request): StepResult
     {
         $data = $this->validate(
             $request,
             $this->rules(),
-            $this->messages(),
-            $this->customAttributes()
+            $this->validator_messages,
+            $this->validator_attributes
         );
 
         return collect($this->fields())

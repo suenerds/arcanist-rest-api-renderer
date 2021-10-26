@@ -17,9 +17,6 @@ class Field extends ArcanistField implements JsonSerializable
     protected $displayCallback = null;
     protected $readOnly = false;
 
-    public $messages = [];
-    public $customAttributes = [];
-
     public function __construct(
         public string $name,
         public array $rules = ['nullable'],
@@ -32,15 +29,6 @@ class Field extends ArcanistField implements JsonSerializable
 
             return $value;
         });
-    }
-
-    public function rules(array $rules, array $messages = [], array $customAttributes = []): self
-    {
-        $this->rules = $rules;
-        $this->messages = $messages;
-        $this->customAttributes = $customAttributes;
-
-        return $this;
     }
 
     public function default($default) : self
