@@ -50,4 +50,15 @@ class WizardStep extends ArcanistStep
             ])
             ->pipe(fn (Collection $values) => $this->handle($request, $values->toArray()));
     }
+
+    /**
+     * @TODO find a better way to solve this issue:
+     * this functionality loads all fields of all steps
+     * this means for us a bunch of data gets loaded
+     */
+    public function dependentFields(): array
+    {
+        // quick fix: no dependsOn anymore :D
+        return [];
+    }
 }
