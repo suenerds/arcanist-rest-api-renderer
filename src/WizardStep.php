@@ -3,16 +3,26 @@
 namespace Suenerds\ArcanistRestApiRenderer;
 
 use Arcanist\StepResult;
-use Arcanist\WizardStep as ArcanistStep;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Arcanist\AbstractWizard;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Arcanist\WizardStep as ArcanistStep;
 use Suenerds\ArcanistRestApiRenderer\Fields\Field;
 
 class WizardStep extends ArcanistStep
 {
     protected array $validator_messages = [];
     protected array $validator_attributes = [];
+    protected AbstractWizard $wizard;
+
+    public function init(AbstractWizard $wizard, int $index): self
+    {
+        parent::init($wizard, $index);
+        $this->wizard = $wizard;
+
+        return $this;
+    }
 
     public function viewData(Request $request): array
     {
