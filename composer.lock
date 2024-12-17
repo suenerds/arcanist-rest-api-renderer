@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a74f462881f81bb08273307d4751247a",
+    "content-hash": "ac6ddbd025ef66a3164fce8c6a85fd36",
     "packages": [
         {
             "name": "brick/math",
@@ -784,16 +784,16 @@
         },
         {
             "name": "laravel-arcanist/arcanist",
-            "version": "dev-main",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/suenert/arcanist.git",
-                "reference": "41435382427b3277a421b93ffd86b10234d87500"
+                "reference": "9a821dad9872092d865b0b3061ad955c91a87d6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/suenert/arcanist/zipball/41435382427b3277a421b93ffd86b10234d87500",
-                "reference": "41435382427b3277a421b93ffd86b10234d87500",
+                "url": "https://api.github.com/repos/suenert/arcanist/zipball/9a821dad9872092d865b0b3061ad955c91a87d6b",
+                "reference": "9a821dad9872092d865b0b3061ad955c91a87d6b",
                 "shasum": ""
             },
             "require": {
@@ -813,7 +813,6 @@
                 "roave/security-advisories": "dev-latest",
                 "spatie/phpunit-snapshot-assertions": "^5.1"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -861,7 +860,7 @@
             ],
             "description": "A package to take the pain out of building multi-step form wizards in Laravel.",
             "support": {
-                "source": "https://github.com/suenert/arcanist/tree/main"
+                "source": "https://github.com/suenert/arcanist/tree/v1.0.0"
             },
             "funding": [
                 {
@@ -869,7 +868,7 @@
                     "url": "https://github.com/ksassnowski"
                 }
             ],
-            "time": "2024-12-17T15:57:49+00:00"
+            "time": "2024-12-17T16:07:12+00:00"
         },
         {
             "name": "laravel/framework",
@@ -7603,9 +7602,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "laravel-arcanist/arcanist": 20
-    },
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {},
